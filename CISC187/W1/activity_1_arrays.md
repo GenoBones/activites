@@ -58,8 +58,8 @@ int main()
 {
     int numbers[100];
 
-    cout << sizeof(numbers[0]) << endl;
-    cout << numbers << endl;
+    cout << sizeof(numArray[0]) << endl;
+    cout << numArray << endl;
 
     return 0;
 }
