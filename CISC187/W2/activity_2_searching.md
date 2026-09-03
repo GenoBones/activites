@@ -1,10 +1,10 @@
 # Array Data Structure
 
-## 1. Linear Search [2, 4, 6, 8, 10, 12, 13] -> Target is 8
+## 1. Linear Search: [2, 4, 6, 8, 10, 12, 13] -> Target is 8
 
 For linear search, it would take 4 comparisons in order to find the number 8. It starts at index zero and increments by one comparing values until it matches at the third index. 
 
-## 2. Binary Search [2, 4, 6, 8, 10, 12, 13] -> Target is 8
+## 2. Binary Search: [2, 4, 6, 8, 10, 12, 13] -> Target is 8
 
 If you were to run a binary search on the same array, it would only take one comparison to find the match since it starts at the middle index. That is, floor((0 + (7 - 1)) / 2) = 3. Therefore, it would start at index 3, which is technically the 4th value in the array. Since 4 is smack dab in the middle of 7, and the value 8 is the middle value, only one comparison would need to be made.
 
