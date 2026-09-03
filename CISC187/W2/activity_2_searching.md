@@ -96,3 +96,11 @@ int main()
     
     return 0;
 }```
+
+##output:
+Linear search for number 800 was found after 800 comparisons. 
+Linear search for number 80000 was found after 80000 comparisons. 
+Linear search for -2 not found after 100000 comparisons.
+Binary search for 800 found after 16 comparisons.
+Binary search for 80000 found after 15 comparisons.
+Binary search for -2 not found after 16 comparisons.
