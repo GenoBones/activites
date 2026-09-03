@@ -103,7 +103,8 @@ int main()
     binarySearch(orderedArray, nonexistentValue);
     
     return 0;
-}```
+}
+```
 
 ## Output:
 Linear search for number 800 was found after 800 comparisons. 
