@@ -113,4 +113,16 @@ Linear search for number 80000 was found after 80000 comparisons.
 Linear search for -2 not found after 100000 comparisons.  
 Binary search for 800 found after 16 comparisons.  
 Binary search for 80000 found after 15 comparisons.  
-Binary search for -2 not found after 16 comparisons.  
+Binary search for -2 not found after 16 comparisons.
+
+### Why linear search is O(N)
+
+The worst case time complexity for linear search is O(N) because it has to check every element in an array one at a time. If the value it is looking for is at the end of the array or doesn't exist it will have to go through each individual value starting at index 0. As the number of elements goes up, so does the max number of comparisons 1 to 1 at the same rate. For instance, I chose -2 as my int value that didn't exist and as you can see it took 100000 comparisons (vs 16 for binary) for the program to realize that. 
+
+### Why binary search is O(log N):
+
+Because each comparison reduces eliminates roughly half of the remaining search space the time complexity can be order of magnitude smaller (represented by the log). This is evident with the ordered set in my code taking no more than 16 comparisons to get an answer. I explained above how binary search functions.
+
+### Why binary search requires sorted data while linear search does not:
+
+Because binary search uses a middle value / given value comparison in order to determine which half of the remaining data to discard, it is absolutely dependent on ordered sets. Linear search in its nature does not have any such constraints as it checks every value one at time. 
