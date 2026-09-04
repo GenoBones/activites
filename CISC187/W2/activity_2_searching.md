@@ -231,3 +231,6 @@ int main()
     return 0;
 }
 ```
+## Output for Task 5:
+
+Value 1337 was found after 69824 comparisons.
