@@ -164,3 +164,70 @@ Print comparisonCount.
 ### Part B — Complexity Analysis:
 
 The best case time complexity would be O(1) since there is technically a 1/100000 chance it gets the right comparison on the first comparison. The average case would still be O(N), much like linear search, because even though the indices are checked randomly it may still need to check a large portion of the array before finding the value. The worst case would also be O(N) because the target could be the final unchecked value, or not exist at all, which would require checking every element.
+
+## Part C (++) — C++ Implementation
+
+```cpp
+#include <iostream>
+#include <vector>
+#include <random>
+using namespace std;
+
+void randSearch(const vector<int>& orderedArray, int givenValue)
+{
+    int comparisonCount = 0;
+
+    vector<int> uncheckedIndices(orderedArray.size());
+    for (int i = 0; i < uncheckedIndices.size(); i++)
+    {
+        uncheckedIndices[i] = i;
+    } 
+    
+    random_device rd;
+    mt19937 generator(rd());
+
+    while (uncheckedIndices.size() > 0)
+{
+    int lastValidIndex = uncheckedIndices.size() - 1;
+
+    uniform_int_distribution<int> validRange(0, lastValidIndex);
+
+    int randomIndex = validRange(generator);
+
+    int selectedIndex = uncheckedIndices[randomIndex];
+
+    comparisonCount++;
+
+    if (orderedArray[selectedIndex] == givenValue)
+    {
+        cout << "Value " << givenValue << " was found after " << comparisonCount << " comparisons." << endl;
+
+        return;
+    }
+     uncheckedIndices[randomIndex] = uncheckedIndices[lastValidIndex];
+
+        uncheckedIndices.pop_back();
+}
+    cout << "Given value " << givenValue << " was not found after " << comparisonCount << " comparisons." << endl;
+}
+
+
+int main()
+{
+    const int givenValue = 1337;
+    const int arraySize = 100000;
+
+    vector<int> orderedArray(arraySize);
+
+
+    for (int i = 0; i < arraySize; i++)
+    {
+        orderedArray[i] = i + 1;
+    }
+
+     randSearch(orderedArray, givenValue);
+
+    
+    return 0;
+}
+```
