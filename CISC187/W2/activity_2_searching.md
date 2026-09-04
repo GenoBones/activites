@@ -126,3 +126,41 @@ Because each comparison reduces eliminates roughly half of the remaining search 
 ### Why binary search requires sorted data while linear search does not:
 
 Because binary search uses a middle value / given value comparison in order to determine which half of the remaining data to discard, it is absolutely dependent on ordered sets. Linear search in its nature does not have any such constraints as it checks every value one at time. 
+
+## 5. Randomized Search:
+
+### Part A — Pseudocode:
+
+Create a vector with 100000 elements in ascending order called orderedArray
+
+Create givenValue int to find within an array  
+
+Run randomized search function  
+
+Within randomized search:  
+Create int called comparisonCount and set to 0  
+New vector with 100000 elements is created called uncheckedIndices.  
+Each elements in uncheckedIndices corresponds to its index number initially.  
+
+While size of uncheckedIndices != 0  
+Randomly select a position from uncheckedIndices
+Pull the index value stored at that position
+Pull the value from orderedArray at that index 
+Increase comparisonCount by 1  
+Compare givenValue to selected value  
+
+if the givenValue is equals the selected value
+Print that the value was found.
+Print comparisonCount.
+End the search.
+
+else, replace the selected entry in uncheckedIndices with the last entry in uncheckedIndices.
+remove last entry/index from uncheckedIndices
+
+If uncheckedIndices becomes empty:
+Print that the value was not found.
+Print comparisonCount.
+
+### Part B — Complexity Analysis:
+
+The best case time complexity would be O(1) since there is technically a 1/100000 chance it gets the right comparison on the first comparison. The average case would still be O(N), much like linear search, because even though the indices are checked randomly it may still need to check a large portion of the array before finding the value. The worst case would also be O(N) because the target could be the final unchecked value, or not exist at all, which would require checking every element.
