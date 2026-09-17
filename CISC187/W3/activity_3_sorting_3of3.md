@@ -310,6 +310,98 @@ Orderliness Threshold is: perfect
 
 ## Part B — Case Classification Without Sorting
 
+```
+#include <iostream>
+#include <string>
+using namespace std;
+
+int examineOrderliness(const int numbers[], int size)
+{
+    int disorderedPairCount = 0;
+
+    for (int i = 0; i < size - 1; i++)
+    {
+        if (numbers[i] > numbers[i + 1])
+        {
+            disorderedPairCount++;
+        }
+    }
+
+    return disorderedPairCount;
+}
+
+string classifyOrderlinessThreshhold(int disorderedPairCount)
+{
+    if (disorderedPairCount == 0)
+    {
+        return "perfect";
+    }
+    else if (disorderedPairCount >= 0 && disorderedPairCount <= 10)
+    {
+        return "best";
+    }
+    else if (disorderedPairCount > 10 && disorderedPairCount <= 34)
+    {
+        return "average";
+    }
+    else
+    {
+        return "worst";
+    }
+}
+
+void printArray(const int numbers[], int size)
+{
+    for (int i = 0; i < size; i++)
+    {
+        cout << numbers[i] << " ";
+    }
+
+    cout << endl;
+}
+
+int main()
+{
+    const int arraySize = 50;
+    
+    int numbers[arraySize];
+
+    cout << "Enter 50 integers:" << endl;
+
+    for (int i = 0; i < arraySize; i++)
+    {
+        cin >> numbers[i];
+    }
+
+    int disorderedPairCount = examineOrderliness(numbers, arraySize);
+    
+    string orderLevel = classifyOrderlinessThreshhold(disorderedPairCount);
+
+    cout << "Out-of-order adjacent pair count: "
+         << disorderedPairCount << endl
+         << "Orderliness Threshold is: "
+         << orderLevel << endl;
+
+    return 0;
+}
+```
+
+Input:
+1, 2, 3, 4, 5,
+9, 8, 7, 6, 10,
+11, 12, 13, 14, 20,
+19, 18, 17, 16, 15,
+21, 22, 23, 34, 24,
+25, 26, 27, 29, 28,
+30, 31, 32, 33, 34,
+40, 39, 38, 37, 36,
+35, 41, 42, 43, 44,
+45, 56, 46, 47, 48
+
+Output:
+Out-of-order adjacent pair count: 16
+Orderliness Threshold is: average
+
 ## Part C — Complexity of the Classification
 
 ## Part D — Documentation and Analysis
