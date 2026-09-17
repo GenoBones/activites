@@ -25,7 +25,8 @@ int numbers[arraySize] =
 
 ### Step 1 — Analyze the Input Order
 
-```#include <iostream>
+```
+#include <iostream>
 using namespace std;
 
 int examineOrderliness(const int numbers[], int size)
@@ -68,6 +69,9 @@ int main()
     return 0;
 }
 ```
+
+Output:  
+Out-of-order adjacent pairs: 10
 
 ### Step 2 — Define a Threshold
 Since a 50 element array has 49 adjacent pairs, and my array is known to have 10 disordered adjacent pairs, that means only about 20% of the adjacent pairs are out of order. Because the large majority of the array is still ordered correctly, I am considering this to be Best/Nearly Sorted. To keep things simple, arrays with about 20% or fewer disordered adjacent pairs will be considered nearly sorted. Anything in the middle will be considered Average/Partially Ordered, while arrays with a large majority of disordered adjacent pairs will be considered Worst/Highly Reverse-Ordered. That being said, the explicit threshold values are as follows:
@@ -141,6 +145,9 @@ int main()
     return 0;
 }
 ```
+Output:  
+Out-of-order adjacent pair count: 10
+Orderliness Threshold is: best
 
 ### Step 3 — Select the Sorting Algorithm
 
