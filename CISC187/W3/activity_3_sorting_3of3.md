@@ -1,7 +1,7 @@
 AI DISCLAIMER: Chat GPT was used to generate a slightly disordered array. No other use AI code was used.   
 QUERY: "can you generate me an array with 50 elements that is slightly disordered. There should be 10 disordered pairs for me to test some sorting algos with"
 
-OUTPUT:
+OUTPUT: "Here’s a 50-element array with exactly 10 adjacent out-of-order pairs. That should work well for testing your function:"
 ```
 int numbers[arraySize] =
 {
