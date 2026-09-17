@@ -3,6 +3,7 @@ QUERY: "can you generate me an array with 50 elements that is slightly disordere
 
 OUTPUT: "Here’s a 50-element array with exactly 10 adjacent out-of-order pairs. That should work well for testing your function:"
 ```
+#include <iostream>
 int numbers[arraySize] =
 {
     1, 2, 4, 3, 5,
