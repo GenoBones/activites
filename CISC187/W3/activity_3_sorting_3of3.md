@@ -403,15 +403,28 @@ Out-of-order adjacent pair count: 16
 Orderliness Threshold is: average
 
 ## Part C — Complexity of the Classification
+My classification function examines each value in the array and compares it to the adjacent value one at a time. For an array with N elements, there are N - 1 pairs to check. As N increases, the number of comparisons also increases at a linear rate. Because Big O ignores the constant difference between N and N - 1, the classification process has a time complexity of O(N). Running my analysis before sorting does add a bit of extra work, but it does not change the Big O complexity of the process.
 
 ## Part D — Documentation and Analysis
 
 ### Threshold Definition
+It seems I already inadvertently answered this above. I will quote myself: 
+"0–10 OoO pairs = Best/Nearly Sorted
+11–34 OoO pairs = Average/Partially Ordered
+35–49 OoO pairs = Worst/Highly Reverse-Ordered"
 
 ### Threshold Justification
+It seems I already inadvertently answered this question above as well. I will quote myself again: "Since a 50-element array has 49 adjacent pairs, and my array is known to have 10 disordered adjacent pairs, that means only about 20% of the adjacent pairs are out of order. Because the large majority of the array is still ordered correctly, I am considering this to be Best/Nearly Sorted. To keep things simple, arrays with about 20% or fewer disordered adjacent pairs will be considered nearly sorted. Anything in the middle will be considered Average, while arrays with a large majority of disordered adjacent pairs will be considered Worst/Highly Reverse-Ordered."
+
 
 ### Algorithm Selection
+For Best arrays, my program selects insertion sort because (as stated in the example given in the instructions) "its performance can approach O(N) when relatively few shifts are required." For Average and Worst arrays, I chose Selection Sort. My justification for this is because selection sort remains O(N²) regardless of how ordered the original array is, while an array that is highly disordered can result in insertion sort making many comparisons and shifts. Thus, I decided to save insertion sort for situations with arrays that are already mostly ordered.
 
 ### Time Complexity
+Selection sort remains O(N²) regardless of the original order because it still searches through the remaining unsorted portion to find the smallest value on each pass. Being already sorted does not save it from making all those comparisons. Insertion sort is more dependent on the original order. If the array is already sorted or close to it, very few shifts are needed and its performance can approach O(N). As the array becomes more and more disordered, each key may need to move through a larger chunk of the sorted section. In the average/worst cases, this results in O(N²).
+
+This also goes to show how two algorithms with the same worst-case Big O can still perform differently when actually run. As mentioned earlier, both selection sort and insertion sort can be O(N²), but insertion sort has the ability to benefit from an already ordered or close-to-ordered array, while selection sort performs about the same amount of comparisons regardless.
 
 ## Analysis and Reflection
+
+Depending on how you look at it, it seems a decent amount of information can be determined about an array without sorting it. As per the exercise, I was able to iterate through all adjacent pairs and determine "orderliness" so that the program could pick the desired sorting algorithm. I don't want to overstate the benefits, but taking an additional O(N) pass through the array seems relatively inexpensive compared with an O(N²) sorting algorithm. Perhaps, though, the juice wouldn't be worth the squeeze for very small datasets, but for very large data sets or super disordered ones, it may be more useful for the program to know which sorting algorithm would be most efficient. However, I lack the mathematical prowess to find the point of diminishing returns. All said and done, Big O does not really give us the full picture about the efficacy of an algorithm. As we observed earlier, two algorithms could have the same worst-case complexity and still perform vastly differently on the same task. At least when comparing these two types of sorting algorithms, it seems the most important determining factors are "orderliness" and size of the data.
