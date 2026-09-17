@@ -398,8 +398,8 @@ Input:
 35, 41, 42, 43, 44,
 45, 56, 46, 47, 48
 
-Output:
-Out-of-order adjacent pair count: 16
+Output:  
+Out-of-order adjacent pair count: 16  
 Orderliness Threshold is: average
 
 ## Part C — Complexity of the Classification
