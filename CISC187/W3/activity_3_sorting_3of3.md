@@ -2,7 +2,8 @@ AI DISCLAIMER: CHAT GPT WAS USED TO GENERATE THE SLIGHTLY DISORDERED ARRAY
 QUERY: "can you generate me an array with 50 elements that is slightly disordered. There should be 10 disordered pairs for me to test some sorting algos with"
 
 OUTPUT:
-```int numbers[arraySize] =
+```
+int numbers[arraySize] =
 {
     1, 2, 4, 3, 5,
     6, 8, 7, 9, 10,
