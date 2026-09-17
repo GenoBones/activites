@@ -144,6 +144,151 @@ int main()
 
 ### Step 3 — Select the Sorting Algorithm
 
+```
+#include <iostream>
+#include <string>
+using namespace std;
+
+int examineOrderliness(const int numbers[], int size)
+{
+    int disorderedPairCount = 0;
+
+    for (int i = 0; i < size - 1; i++)
+    {
+        if (numbers[i] > numbers[i + 1])
+        {
+            disorderedPairCount++;
+        }
+    }
+
+    return disorderedPairCount;
+}
+
+string classifyOrderlinessThreshhold(int disorderedPairCount)
+{
+    if (disorderedPairCount == 0)
+    {
+        return "perfect";
+    }
+    else if (disorderedPairCount >= 0 && disorderedPairCount <= 10)
+    {
+        return "best";
+    }
+    else if (disorderedPairCount > 10 && disorderedPairCount <= 34)
+    {
+        return "average";
+    }
+    else
+    {
+        return "worst";
+    }
+}
+
+void insertionSort(int numbers[], int size)
+{
+    for (int i = 1; i < size; i++)
+    {
+        int key = numbers[i];
+        int j = i - 1;
+
+        while (j >= 0 && numbers[j] > key)
+        {
+            numbers[j + 1] = numbers[j];
+            j--;
+        }
+
+        numbers[j + 1] = key;
+    }
+}
+
+void selectionSort(int numbers[], int size)
+{
+    for (int i = 0; i < size - 1; i++)
+    {
+        int smallestIndex = i;
+
+        for (int j = i + 1; j < size; j++)
+        {
+            if (numbers[j] < numbers[smallestIndex])
+            {
+                smallestIndex = j;
+            }
+        }
+
+        int temporaryValue = numbers[i];
+        numbers[i] = numbers[smallestIndex];
+        numbers[smallestIndex] = temporaryValue;
+    }
+}
+
+void printArray(const int numbers[], int size)
+{
+    for (int i = 0; i < size; i++)
+    {
+        cout << numbers[i] << " ";
+    }
+
+    cout << endl;
+}
+
+int main()
+{
+    const int arraySize = 50;
+
+    int numbers[arraySize] =
+        {
+            1, 2, 4, 3, 5,
+            6, 8, 7, 9, 10,
+            12, 11, 13, 15, 14,
+            16, 17, 19, 18, 20,
+            21, 23, 22, 24, 25,
+            27, 26, 28, 30, 29,
+            31, 32, 34, 33, 35,
+            36, 38, 37, 39, 40,
+            41, 42, 43, 44, 45,
+            46, 47, 48, 49, 50};
+
+    cout << "Array Before Sorting:" << endl;
+    printArray(numbers, arraySize);
+
+    int disorderedPairCount = examineOrderliness(numbers, arraySize);
+
+    string orderLevel = classifyOrderlinessThreshhold(disorderedPairCount);
+
+    cout << "Out-of-order adjacent pair count: "
+         << disorderedPairCount << endl
+         << "Orderliness Threshold is: "
+         << orderLevel << endl;
+
+    if (orderLevel == "best")
+    {
+        cout << "Sorting Algorithm Selected: Insertion Sort" << endl;
+
+        insertionSort(numbers, arraySize);
+    }
+    else
+    {
+        cout << "Sorting Algorithm Selected: Selection Sort" << endl;
+
+        selectionSort(numbers, arraySize);
+    }
+
+    disorderedPairCount = examineOrderliness(numbers, arraySize);
+    orderLevel = classifyOrderlinessThreshhold(disorderedPairCount);
+
+    cout << endl;
+    cout << "Array After Sorting:" << endl;
+    printArray(numbers, arraySize);
+    cout << "Out-of-order adjacent pair count: "
+         << disorderedPairCount << endl;
+
+    cout << "Orderliness Threshold is: "
+         << orderLevel << endl;
+
+    return 0;
+}
+```
+
 ## Part B — Case Classification Without Sorting
 
 ## Part C — Complexity of the Classification
