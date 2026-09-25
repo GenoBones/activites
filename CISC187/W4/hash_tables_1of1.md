@@ -516,15 +516,259 @@ All 11 positions examined, key not found
 ### Analysis
 
 
-## Part 7 — Deletion and Tombstones
+```
+#include <iostream>
+#include <string>
+using namespace std;
 
-### Remove Operation
+struct Record
+{
+    int key;
+    string value;
+    string status;
+};
 
-### C++ Implementation
+int hashFunction(int key, int tableSize)
+{
+    int digitSum = 0;
 
-### Demonstration
+    while (key > 0)
+    {
+        digitSum += key % 10;
+        key = key / 10;
+    }
+
+    return digitSum % tableSize;
+}
+
+void printTable(Record hashTable[], int tableSize)
+{
+    for (int i = 0; i < tableSize; i++)
+    {
+        cout << "Index " << i << ": ";
+
+        if (hashTable[i].status == "USED")
+        {
+            int homePosition = hashFunction(hashTable[i].key, tableSize);
+
+            cout << " | " << "Key - " << hashTable[i].key << " | "
+                 << " | " << " Value - " << hashTable[i].value << " | "
+                 << " | " << " Home Position: " << homePosition << " | "
+                 << " | " << " Actual Position: " << i << " | ";
+        }
+           else if (hashTable[i].status == "DELETED")
+        {
+            cout << "DELETED";
+        }
+        else
+        {
+            cout << "EMPTY";
+        }
+        
+        cout << endl;
+    }
+}
+
+void insertRecord(Record hashTable[], int tableSize, int key, string value)
+{
+    int homePosition = hashFunction(key, tableSize);
+
+    // check whether the key already exists so we dont have duplicate entries on DELETE discovery. 
+    for (int i = 0; i < tableSize; i++)
+    {
+        int index = (homePosition + i) % tableSize;
+
+        if (hashTable[index].status == "EMPTY")
+        {
+            break;
+        }
+
+        if (hashTable[index].status == "USED" &&
+            hashTable[index].key == key)
+        {
+            hashTable[index].value = value;
+            return;
+        }
+    }
+
+    for (int i = 0; i < tableSize; i++)
+    {
+        int index = (homePosition + i) % tableSize;
+
+        if (hashTable[index].status == "EMPTY" ||
+            hashTable[index].status == "DELETED")
+        {
+            hashTable[index].key = key;
+            hashTable[index].value = value;
+            hashTable[index].status = "USED";
+
+            return;
+        }
+    }
+
+    cout << "No available spaces in hash table." << endl;
+}
+
+bool removeRecord(Record hashTable[], int tableSize, int key)
+{
+    int homePosition = hashFunction(key, tableSize);
+
+    for (int i = 0; i < tableSize; i++)
+    {
+        int index = (homePosition + i) % tableSize;
+
+        if (hashTable[index].status == "EMPTY")
+        {
+            return false;
+        }
+
+        if (hashTable[index].status == "USED" &&
+            hashTable[index].key == key)
+        {
+            hashTable[index].status = "DELETED";
+            return true;
+        }
+    }
+
+    return false;
+}
+
+void searchRecord(Record hashTable[], int tableSize, int key)
+{
+    int homePosition = hashFunction(key, tableSize);
+    int positionsExamined = 0;
+
+    for (int i = 0; i < tableSize; i++)
+    {
+        int index = (homePosition + i) % tableSize;
+        positionsExamined++;
+
+        if (hashTable[index].status == "EMPTY")
+        {
+            cout << "For key " << key << endl;
+            cout << "Key not found." << endl;
+            cout << "Positions examined: " << positionsExamined << endl;
+            cout << endl;
+            return;
+        }
+
+        if (hashTable[index].status == "USED" &&
+            hashTable[index].key == key)
+        {
+            cout << "For key " << key << endl;
+            cout << "Found at index: " << index << endl;
+            cout << "Positions examined: " << positionsExamined << endl;
+            cout << endl;
+
+            return;
+        }
+    }
+    
+    cout << "For key " << key << endl;
+    cout << "All " << positionsExamined << " positions examined, key not found " << endl;
+    cout << endl;
+    
+    return;
+}
+
+int main()
+{
+    const int tableSize = 11;
+
+    Record hashTable[tableSize];
+
+    for (int i = 0; i < tableSize; i++)
+    {
+        hashTable[i].status = "EMPTY";
+    }
+    
+   
+    insertRecord(hashTable, tableSize, 555223, "Geno");
+    insertRecord(hashTable, tableSize, 555980, "Lex");
+    insertRecord(hashTable, tableSize, 555000, "Zia");
+    insertRecord(hashTable, tableSize, 555890, "Zezzy");
+    
+    //Test case for key exists at its home position
+    // searchRecord(hashTable, tableSize, 555223);
+    // searchRecord(hashTable, tableSize, 555980);
+    // searchRecord(hashTable, tableSize, 555000);
+    // Case 2: Key exists but was displaced by a collision
+    // searchRecord(hashTable, tableSize, 555890);
+    // Case 3: Key does not exist and search reaches an EMPTY slot
+    // searchRecord(hashTable, tableSize, 123456);
+    
+    //Test case for key not found
+    // insertRecord(hashTable, tableSize, 2, "Test2");
+    // insertRecord(hashTable, tableSize, 3, "Test3");
+    // insertRecord(hashTable, tableSize, 5, "Test5");
+    // insertRecord(hashTable, tableSize, 6, "Test6");
+    // insertRecord(hashTable, tableSize, 7, "Test7");
+    // insertRecord(hashTable, tableSize, 8, "Test8");
+    // insertRecord(hashTable, tableSize, 9, "Test9");
+    // searchRecord(hashTable, tableSize, 123456);
+
+    printTable(hashTable, tableSize);
+    cout << endl;
+    cout << endl;
+    
+    bool removed = removeRecord(hashTable, tableSize, 555980);
+
+    if (removed)
+    {
+        cout << "Key 555980 removed successfully." << endl;
+    }
+    else
+    {
+        cout << "Key not found." << endl;
+    }
+    
+    printTable(hashTable, tableSize);
+    cout << endl;
+    cout << endl;
+    
+    cout << "Searching for displaced key down the probe chain:" << endl;
+    searchRecord(hashTable, tableSize, 555890);
+
+    return 0;
+}
+```
+
+### Output  
+Index 0:  | Key - 555223 |  |  Value - Geno |  |  Home Position: 0 |  |  Actual Position: 0 |   
+Index 1:  | Key - 555890 |  |  Value - Zezzy |  |  Home Position: 10 |  |  Actual Position: 1 |  
+Index 2: EMPTY  
+Index 3: EMPTY  
+Index 4:  | Key - 555000 |  |  Value - Zia |  |  Home Position: 4 |  |  Actual Position: 4 |  
+Index 5: EMPTY  
+Index 6: EMPTY  
+Index 7: EMPTY  
+Index 8: EMPTY  
+Index 9: EMPTY  
+Index 10:  | Key - 555980 |  |  Value - Lex |  |  Home Position: 10 |  |  Actual Position: 10 |  
+
+
+Key 555980 removed successfully.  
+Index 0:  | Key - 555223 |  |  Value - Geno |  |  Home Position: 0 |  |  Actual Position: 0 |  
+Index 1:  | Key - 555890 |  |  Value - Zezzy |  |  Home Position: 10 |  |  Actual Position: 1 |  
+Index 2: EMPTY  
+Index 3: EMPTY  
+Index 4:  | Key - 555000 |  |  Value - Zia |  |  Home Position: 4 |  |  Actual Position: 4 |  
+Index 5: EMPTY  
+Index 6: EMPTY  
+Index 7: EMPTY  
+Index 8: EMPTY  
+Index 9: EMPTY  
+Index 10: DELETED  
+
+
+Searching for displaced key down the probe chain:  
+For key 555890  
+Found at index: 1  
+Positions examined: 3  
 
 ### Analysis
+
+We cant just mark it as EMPTY because doing so could have a probe stop prematurely. Instead we check if its EMPTY or DELETED, and then insert in DELETED only after confirming the key does not exist elsewhere in the chain. 
 
 
 ## Part 8 — Load Factor
