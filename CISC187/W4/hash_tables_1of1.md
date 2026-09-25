@@ -311,17 +311,17 @@ int main()
 
 ### Program Output
 
-Index 0:  | Key - 555223 |  |  Value - Geno |  |  Home Position: 0 |  |  Actual Position: 0 | 
-Index 1:  | Key - 555890 |  |  Value - Zezzy |  |  Home Position: 10 |  |  Actual Position: 1 | 
-Index 2: EMPTY
-Index 3: EMPTY
-Index 4:  | Key - 555000 |  |  Value - Zia |  |  Home Position: 4 |  |  Actual Position: 4 | 
-Index 5: EMPTY
-Index 6: EMPTY
-Index 7: EMPTY
-Index 8: EMPTY
-Index 9: EMPTY
-Index 10:  | Key - 555980 |  |  Value - Lex |  |  Home Position: 10 |  |  Actual Position: 10 | 
+Index 0:  | Key - 555223 |  |  Value - Geno |  |  Home Position: 0 |  |  Actual Position: 0 |   
+Index 1:  | Key - 555890 |  |  Value - Zezzy |  |  Home Position: 10 |  |  Actual Position: 1 |   
+Index 2: EMPTY  
+Index 3: EMPTY  
+Index 4:  | Key - 555000 |  |  Value - Zia |  |  Home Position: 4 |  |  Actual Position: 4 |   
+Index 5: EMPTY  
+Index 6: EMPTY  
+Index 7: EMPTY  
+Index 8: EMPTY  
+Index 9: EMPTY  
+Index 10:  | Key - 555980 |  |  Value - Lex |  |  Home Position: 10 |  |  Actual Position: 10 |   
 
 ### Analysis
 
