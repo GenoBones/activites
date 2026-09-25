@@ -488,6 +488,31 @@ int main()
 }
 ```
 
+### Output  
+For key 555223  
+Found at index: 0  
+Positions examined: 1  
+
+For key 555980  
+Found at index: 10  
+Positions examined: 1  
+
+For key 555000  
+Found at index: 4  
+Positions examined: 1  
+
+For key 555890  
+Found at index: 1  
+Positions examined: 3  
+
+For key 123456  
+Key not found.  
+Positions examined: 4  
+
+For key 123456  
+All 11 positions examined, key not found  
+
+
 ### Analysis
 
 
