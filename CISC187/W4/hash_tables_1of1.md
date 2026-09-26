@@ -1,3 +1,7 @@
+AI DISCLAIMER: I forgot to mention this on the previous assignments, but I believe that for the past 2 or 3 assignments, I ask AI to create a skeleton for my .MD file that has all of the headers and sub-headers just to make things more convenient. I don't always use every header so that is why many get removed when I start filling it out. I also copy and pasted my code and outputs per section and asked "Does my code satisfy the requirements of this section"? This was mainly because there are so many sections and parts it is so very easy to miss something.  I did not ask it to provide answers, and when it would volunteer solutions, I did not use them, but may have looked at them for reference - often times the suggested solutions hinted at a direction to go, but didn't adequately solve the problem in a way I wanted and often tried to completely change my code. Sometimes it would also lead me in the wrong direction making me backtrack. As always, I am happy to walk through my code on call. 
+
+Further update: For Dataset B on part 9, I used AI to come up with keys that would have similar or same hash indices. 
+
 # Hash Tables and Linear Probing
 
 ## Part 1 — Understanding Hash Functions
