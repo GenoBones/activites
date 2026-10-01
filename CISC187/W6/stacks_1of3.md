@@ -3,14 +3,14 @@
 ## Part 1 — Trace Stack Operations
 
 ### Stack Trace  
-push(10): Value Returned: NA | Stack: [10] | Top: 10 | Size: 1
-push(20): Value Returned: NA | Stack: [10, 20] | Top: 20 | Size: 2
-push(30): Value Returned: NA | Stack: [10, 20, 30] | Top: 30 | Size: 3
-pop(): Value Returned: 30 | Stack: [10, 20] | Top: 20 | Size: 2
-push(40): Value Returned: NA | Stack: [10, 20, 40] | Top: 40 | Size: 3
-push(50): Value Returned: NA | Stack: [10, 20, 40, 50] | Top: 50 | Size: 4
-pop(): Value Returned: 50 | Stack: [10, 20, 40] | Top: 40 | Size: 3
-push(60): Value Returned: NA | Stack: [10, 20, 40, 60] | Top: 60 | Size: 4 
+push(10): Value Returned: NA | Stack: [10] | Top: 10 | Size: 1  
+push(20): Value Returned: NA | Stack: [10, 20] | Top: 20 | Size: 2  
+push(30): Value Returned: NA | Stack: [10, 20, 30] | Top: 30 | Size: 3  
+pop(): Value Returned: 30 | Stack: [10, 20] | Top: 20 | Size: 2  
+push(40): Value Returned: NA | Stack: [10, 20, 40] | Top: 40 | Size: 3  
+push(50): Value Returned: NA | Stack: [10, 20, 40, 50] | Top: 50 | Size: 4  
+pop(): Value Returned: 50 | Stack: [10, 20, 40] | Top: 40 | Size: 3  
+push(60): Value Returned: NA | Stack: [10, 20, 40, 60] | Top: 60 | Size: 4   
 
 ### Analysis
 The final top element is 60. The final stack size is 4. The remaining elements would be removed in the order 60, 40, 20, 10.
