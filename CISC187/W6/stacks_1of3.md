@@ -341,7 +341,7 @@ A topIndex of -1 means the stack is empty. Since -1 is not a valid array index, 
 #include <iostream>
 #include <stdexcept>
 using namespace std;
-
+```
 class Stack
 {
 private:
