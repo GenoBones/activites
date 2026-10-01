@@ -338,10 +338,11 @@ int main()
 A topIndex of -1 means the stack is empty. Since -1 is not a valid array index, trying to access data[-1] would attempt to read memory outside of the array
 
 ## Part 6 — Implement top()
+```
 #include <iostream>
 #include <stdexcept>
 using namespace std;
-```
+
 class Stack
 {
 private:
@@ -780,6 +781,8 @@ bool balanced(const string& expression)
 int main()
 {
 
+    cout << boolalpha;
+
     cout << "Balanced delimiter tests:" << endl;
 
     cout << "{(a+b)*[c-d]}: "
@@ -806,12 +809,12 @@ int main()
 
 ### Test Results  
 Balanced delimiter tests:  
-{(a+b)*[c-d]}: 1  
-((a+b)): 1  
-((a+b): 0  
-(a+b]: 0  
-[(())]: 1  
-{[()]}: 1  
+{(a+b)*[c-d]}: true  
+((a+b)): true   
+((a+b): false   
+(a+b]: false    
+[(())]: true    
+{[()]}: true    
 
 
 ## Part 12 — Analyze Delimiter Matching  
