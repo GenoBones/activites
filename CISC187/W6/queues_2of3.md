@@ -74,10 +74,10 @@ dequeue():    frontIndex: 1 | rearIndex: 0 | count: 4 | Queue: [20, 30, 40, 50]
 dequeue():    frontIndex: 2 | rearIndex: 0 | count: 3 | Queue: [30, 40, 50]  
 enqueue(60):  frontIndex: 2 | rearIndex: 1 | count: 4 | Queue: [30, 40, 50, 60]  
 
-1: Wraparound occurs when rearIndex reaches the end of the array and moves from index 4 back to index 0.
-2: The next position after the last array index is 0 because modulo wraps the index back to the beginning.
-3: Physical array order can differ from logical queue order because the queue can wrap around and reuse earlier array positions.
-4: Modulo makes this possible by wrapping the index back to 0 when it reaches the capacity. Example: with capacity of 5, (4 + 1) % 5 = 0, so the index moves from 4 back to 0.
+1: Wraparound occurs when rearIndex reaches the end of the array and moves from index 4 back to index 0.  
+2: The next position after the last array index is 0 because modulo wraps the index back to the beginning.  
+3: Physical array order can differ from logical queue order because the queue can wrap around and reuse earlier array positions.  
+4: Modulo makes this possible by wrapping the index back to 0 when it reaches the capacity. Example: with capacity of 5, (4 + 1) % 5 = 0, so the index moves from 4 back to 0.  
 
 ---
 
