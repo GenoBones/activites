@@ -83,58 +83,299 @@ enqueue(60):  frontIndex: 2 | rearIndex: 1 | count: 4 | Queue: [30, 40, 50, 60]
 
 ## Part 9 — Logical Position vs. Physical Position
 
-### Position Calculations
+0: (6 + 0) % 8 = 6 → Physical Index: 6  
+1: (6 + 1) % 8 = 7 → Physical Index: 7  
+2: (6 + 2) % 8 = 0 → Physical Index: 0  
+3: (6 + 3) % 8 = 1 → Physical Index: 1  
 
-### Analysis
+1: The logical queue can cross the end of the physical array because modulo wraps the index back to 0. This lets the queue continue using open positions without moving the existing elements.
 
 ---
 
 ## Part 10 — Test the Complete Circular Queue
 
-### Complete Program
+### Complete Program  
+```
+#include <iostream>
+#include <stdexcept>
+using namespace std;
 
-### Test Results
+class Queue
+{
+private:
+    static const int CAPACITY = 5;
+
+    int data[CAPACITY];
+    int frontIndex;
+    int rearIndex;
+    int count;
+
+public:
+    Queue();
+
+    bool empty() const;
+    bool full() const;
+    int size() const;
+
+    void enqueue(int value);
+    int dequeue();
+    int front() const;
+};
+
+Queue::Queue()
+{
+    frontIndex = 0;
+    rearIndex = 0;
+    count = 0;
+}
+
+bool Queue::empty() const
+{
+    return count == 0;
+}
+
+bool Queue::full() const
+{
+    return count == CAPACITY;
+}
+
+int Queue::size() const
+{
+    return count;
+}
+
+void Queue::enqueue(int value)
+{
+    if (full())
+    {
+        cout << "Queue is full. Throwing overflow error." << endl; //c++ shell not throwing errr - using simple cout statement
+        return;
+        //throw overflow_error("Queue overflow");
+    }
+
+    data[rearIndex] = value;
+    rearIndex = (rearIndex + 1) % CAPACITY;
+    count++;
+}
+
+int Queue::dequeue()
+{
+    if (empty())
+    {
+        cout << "Throwing underflow error." << endl; //c++ shell not throwing errr - using simple cout statement
+        return -1;
+        //throw underflow_error("Queue underflow");
+    }
+
+    int value = data[frontIndex];
+    frontIndex = (frontIndex + 1) % CAPACITY;
+    count--;
+
+    return value;
+}
+
+int Queue::front() const
+{
+    if (empty())
+    {
+        cout << "Throwing underflow error." << endl; //c++ shell not throwing errr - using simple cout statement
+        return -1;
+        //throw underflow_error("Queue is empty");
+    }
+
+    return data[frontIndex];
+}
+
+int main()
+{
+    Queue queue;
+
+    cout << boolalpha;
+
+    cout << "Initial queue:" << endl;
+    cout << "Queue empty: " << queue.empty() << endl;
+    cout << "Queue full: " << queue.full() << endl;
+    cout << "Queue size: " << queue.size() << endl;
+
+    cout << endl;
+
+    cout << "Adding values:" << endl;
+
+    for (int value = 10; value <= 50; value += 10)
+    {
+        queue.enqueue(value);
+        cout << "Enqueued: " << value << endl;
+    }
+
+    cout << endl;
+
+    cout << "Queue full: " << queue.full() << endl;
+    cout << "Queue size: " << queue.size() << endl;
+    cout << "Front value: " << queue.front() << endl;
+
+    cout << endl;
+
+    cout << "Testing overflow:" << endl;
+    queue.enqueue(60);
+
+    cout << endl;
+
+    cout << "Removing two values:" << endl;
+    cout << "Dequeued: " << queue.dequeue() << endl;
+    cout << "Dequeued: " << queue.dequeue() << endl;
+
+    cout << "Front value: " << queue.front() << endl;
+    cout << "Queue size: " << queue.size() << endl;
+
+    cout << endl;
+
+    cout << "Testing circular wraparound:" << endl;
+
+    queue.enqueue(60);
+    queue.enqueue(70);
+
+    cout << "Enqueued: 60" << endl;
+    cout << "Enqueued: 70" << endl;
+    cout << "Queue Full: " << queue.full() << endl;
+    cout << "Queue Size: " << queue.size() << endl;
+    cout << "Queue Front: " << queue.front() << endl;
+
+    cout << endl;
+
+    cout << "Removing values:" << endl;
+
+    while (!queue.empty())
+    {
+        cout << "Dequeued: " << queue.dequeue() << endl;
+    }
+
+    cout << endl;
+
+    cout << "Queue empty: " << queue.empty() << endl;
+    cout << "Queue size: " << queue.size() << endl;
+
+    cout << endl;
+
+    cout << "Testing underflow:" << endl;
+    queue.dequeue();
+
+    return 0;
+}
+```
+
+### Output  
+Initial queue:  
+Queue empty: true  
+Queue full: false  
+Queue size: 0  
+
+Adding values:  
+Enqueued: 10  
+Enqueued: 20  
+Enqueued: 30  
+Enqueued: 40  
+Enqueued: 50  
+
+Queue full: true  
+Queue size: 5  
+Front value: 10  
+
+Testing overflow:  
+Queue is full. Throwing overflow error.  
+
+Removing two values:  
+Dequeued: 10  
+Dequeued: 20   
+Front value: 30   
+Queue size: 3  
+
+Testing circular wraparound and reusing positions:  
+Enqueued: 60  
+Enqueued: 70  
+Queue Full: true  
+Queue Size: 5  
+Queue Front: 30  
+
+Removing values:  
+Dequeued: 30  
+Dequeued: 40  
+Dequeued: 50  
+Dequeued: 60  
+Dequeued: 70  
+
+Queue empty: true  
+Queue size: 0  
+
+Testing underflow:  
+Throwing underflow error.  
+ 
+Normal program termination. Exit status: 0  
 
 ---
 
-## Part 11 — Complexity Analysis
+## Part 11 — Complexity Analysis  
 
-### Operation Complexity
+enqueue(): O(1) | Adds one value and advances rearIndex.
+dequeue(): O(1) | Removes one value and advances frontIndex.
+front():   O(1) | Directly accesses the front value.
+empty():   O(1) | Checks whether count == 0.
+full():    O(1) | Checks whether count == CAPACITY.
+size():    O(1) | Returns count.
 
-### Circular Queue vs. Shifting Queue
+1: A shifting dequeue() is O(N) because the remaining elements may all need to move. A circular dequeue() is O(1) because it only advances frontIndex. 
+ 
+2: Removing all N elements from a shifting queue is O(N²). Removing all N elements from a circular queue is O(N).  
 
 ---
 
 ## Part 12 — FIFO Correctness
 
-### Operation Results
-
-### Analysis
+1: The dequeue() operations return 5, 10, 15, 20.  
+2: If values are enqueued as x1, x2, ... xN, they should be dequeued as x1, x2, ... xN.  
+3: This tests correctness because a queue should return values in the same order they were added, following FIFO.  
 
 ---
 
 ## Part 13 — Queue Applications
 
-### Scenario A — Print Server
-
-### Scenario B — Server Requests
-
-### Scenario C — Undo
-
-### Scenario D — Breadth-First Search
-
-### Scenario E — Function Calls
+A: Print jobs should be processed in the order they arrive. Evidence of FIFO. Queue is appropriate.
+B: Server requests should generally be processed in arrival order. Evidence of FIFO. Queue is appropriate.
+C: Most recent action should be undone first. Evidence of LIFO. Queue is not appropriate; Stack is better.
+D: Earlier discovered vertices should be processed before later ones. Evidence of FIFO. Queue is appropriate.
+E: Most recently called unfinished function should complete first. Evidence of LIFO. Queue is not appropriate. Stack is better.
 
 ---
 
 ## Part 14 — Queue and Breadth-First Search
 
-### BFS Visit Order
+Visit Order: A, B, C, D, E, F
 
-### Queue Trace
+Start: Processed: -- | Added: A    | Queue: [A]  
+1:     Processed: A  | Added: B, C | Queue: [B, C]  
+2:     Processed: B  | Added: D, E | Queue: [C, D, E]  
+3:     Processed: C  | Added: F    | Queue: [D, E, F]  
+4:     Processed: D  | Added: None | Queue: [E, F]  
+5:     Processed: E  | Added: None | Queue: [F]  
+6:     Processed: F  | Added: None | Queue: []  
 
-### Complexity
+FIFO causes level-by-level traversal because vertices discovered first are processed first.
+
+Complexity: O(V + E) because each vertex is visited once and each edge is examined.
+
+Worst-Case Auxiliary Space: O(V) because the queue may need to hold many vertices at once.
 
 ---
 
-# Analysis and Reflection
+# Analysis
+
+1: A queue is an ADT because it is defined by FIFO behavior and operations like enqueue() and dequeue(), not by one specific storage method.  
+2: FIFO removes the oldest item first, while LIFO removes the newest item first.  
+3: Circular indexing is better because we only move frontIndex instead of shifting every remaining element after a dequeue().  
+4: frontIndex tracks the next item to remove. rearIndex tracks where the next item will be added. count tracks how many items are stored.  
+5: Modulo allows an index to wrap back to 0 after reaching the end of the array.  
+6: frontIndex == rearIndex can mean either empty or full, so the indexes alone aren't sufficient.  
+7: Count solves this because count == 0 means empty and count == CAPACITY means full.  
+8: enqueue() and dequeue() are O(1) because they only update a few values instead of looping through the queue.  
+9: Because queues are structured around FIFO, and FIFO handles the oldest request first.  
+10: BFS uses FIFO so vertices discovered earlier are processed before later ones, causing the graph to be explored level by level.  
+
