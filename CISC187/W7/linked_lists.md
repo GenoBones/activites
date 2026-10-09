@@ -444,13 +444,19 @@ Traverse entire list: O(N) | Every node must be visited once.
 
 ### Analysis  
 
-1: Linked lists can insert or delete nodes efficiently because they can change pointers instead of shifting many elements. However, they cannot provide O(1) random access because you must start at head and follow each next pointer until reaching the desired node.
+1: Linked lists can insert or delete nodes efficiently because they can change pointers instead of shifting many elements. However, they cannot provide O(1) random access because you must start at head and follow each next pointer until reaching the desired node.  
     
 ---
 
 ## Part 14 — Reasoning About a Tail Pointer  
 
-### Analysis  
+### Analysis   
+
+1: insertBack() becomes significantly faster because tail gives direct access to the last node.  
+2: Inserting at the end becomes O(1).  
+3: No. Searching is still O(N) because you may need to traverse the list to find a value.  
+4: No. Deleting the final node is still O(N) in a singly linked list.  
+5: tail points to the last node, but it does not tell us which node comes before it. We still have to traverse from head to find the second-to-last node and make it the new tail.  
 
 ---
 
@@ -458,32 +464,33 @@ Traverse entire list: O(N) | Every node must be visited once.
 
 ### Analysis  
 
+1: prev stores the address of the previous node in the list.  
+2: A doubly linked list can move both forward and backward because each node has both a next and a prev pointer.  
+3: It uses more memory because every node has to store an additional pointer.  
+4: Deletion can be easier because if we already have a pointer to the node, prev gives us direct access to the node before it, so we can reconnect the surrounding nodes without searching from head.  
+
 ---
 
 ## Part 16 — Circular Linked Lists  
  
 ### Analysis  
 
+1: A normal while (temp != nullptr) traversal would fail because a circular linked list never reaches nullptr; the last node points back to head.  
+2: One complete traversal is finished when the pointer returns to head.  
+3: Circular linked lists work well for repeated cyclic processes because after the last node, traversal automatically continues back to the first node.  
+4: One example from the text is round-robin scheduling, where each item gets a turn and then the process repeats from the beginning. Also mentioned was buffer management. 
+
 ---
 
 # Analysis and Reflection
 
-1:
-
-2:
-
-3:
-
-4:
-
-5:
-
-6:
-
-7:
-
-8:
-
-9:
-
-10:
+1: Linked lists do not require contiguous memory because each node can exist in a different location and uses a pointer to connect to the next node.  
+2: head stores the address of the first node and gives us a starting point for accessing the list.  
+3: Traversal is O(N) because we may need to follow every next pointer from head to nullptr.  
+4: Inserting at the beginning is O(1) because we only connect the new node to head and then update head.  
+5: Inserting at the end is O(N) without a tail pointer because we must traverse the list to find the last node.  
+6: Deletion requires careful pointer manipulation because the remaining nodes must be reconnected before the target node is deleted.  
+7: Nodes created with new must eventually be deleted so the allocated memory is released and does not cause a memory leak.  
+8: A linked list cannot efficiently use binary search because there is no direct access to the middle element; we must traverse through the nodes to reach it.  
+9: A linked list may be better when frequent insertions or deletions are needed because nodes can be reconnected without shifting many elements.  
+10: An array or vector may be better when fast access by index is important because elements can be accessed directly rather than traversing from head.  
