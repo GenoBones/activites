@@ -52,12 +52,14 @@ Using an array makes it easy to keep track of the last node because the last nod
 3: These formulas work because the heap is a complete tree stored from top to bottom, left to right. The parent and child positions follow a predictable pattern in the array. 
 
 ## Part 7 — Heap Insertion  
-
+```
 Current Index | Parent Index | Current Value | Parent Value | Action  
 7             | 3            | 85            | 20           | Swap  
 3             | 1            | 85            | 70           | Swap  
 1             | 0            | 85            | 90           | Stop  
+```
 
+```
      TREE DIAGRAM:  
 
           90  
@@ -67,6 +69,7 @@ Current Index | Parent Index | Current Value | Parent Value | Action
    70   40  60   50  
   /  
 20  
+```
 
 The new value has to be placed at the end of the array first because this preserves the complete-tree condition. Once it is added, it can trickle upward based on its value until the heap condition is restored. Putting it directly where it seems to belong based on value could leave gaps in the tree.
 
@@ -78,7 +81,7 @@ If the heap is empty, the function should handle it before trying to access inde
 ## Part 9 — Removing the Root
 
 ## Part 10 — Trickle-Down
-
+```
 Current Index | Left Child | Right Child | Larger Child | Action  
 0             | 80         | 75          | 80           | Swap with 80  
 1             | 60         | 70          | 70           | Swap with 70  
@@ -93,7 +96,7 @@ Current Index | Left Child | Right Child | Larger Child | Action
    60   30  40   50  
   /  
 20  
-
+```
 ## Part 11 — Why the Larger Child?  
 When trickling a value down, we compare it with the larger of its two children. If we swapped with the smaller child instead, the larger child could still be greater than the parent, which would leave the heap condition broken. Choosing the larger child makes sure the parent is greater than both children after the swap.  
 
@@ -341,7 +344,7 @@ A heap can still be better overall because it keeps both insertion and removal e
 ## Part 16 — Priority Queue Reasoning  
 
 Final Heap: [10, 9, 2, 4, 7]
-
+```
 FINAL HEAP DIAGRAM  
 
         10  
@@ -349,7 +352,7 @@ FINAL HEAP DIAGRAM
       9    2  
      / \  
     4   7  
-
+```
 Task E is processed first because it has the highest priority. After removing 10, task B is processed next.  
 
 A heap works well for a priority queue because the highest-priority item is always at the root. Insertion and removal are both O(log N).  
