@@ -152,3 +152,165 @@ E: 6
 3.) Matrix adjacency check: O(1) - We can directly check one position in the matrix to see whether two vertices are connected.  
 4.) Dijkstra with list-based unvisited queue: O(V²) - The algorithm processes every vertex, and finding the unvisited vertex with the smallest distance can require searching through the list each time.  
 5.) Dijkstra with binary-heap priority queue: O((E + V) log V) - Using a binary heap makes selecting and updating vertices more efficient while the algorithm processes the vertices and edges.  
+
+## Part 13 — Complete Program Test
+
+```
+#include <iostream>
+#include <vector>
+#include <queue>
+#include <stack>
+
+using namespace std;
+
+class Graph
+{
+private:
+    vector<vector<int>> adjacencyList;
+
+public:
+    Graph(int vertices);
+
+    void addEdge(int source, int destination);
+    void display() const;
+
+    void bfs(int start) const;
+    void dfs(int start) const;
+};
+
+Graph::Graph(int vertices)
+{
+    adjacencyList.resize(vertices);
+}
+
+void Graph::addEdge(int source, int destination)
+{
+    adjacencyList[source].push_back(destination);
+    adjacencyList[destination].push_back(source);
+}
+
+void Graph::display() const
+{
+    for (int i = 0; i < adjacencyList.size(); i++)
+    {
+        cout << i << ": ";
+
+        for (int j = 0; j < adjacencyList[i].size(); j++)
+        {
+            cout << adjacencyList[i][j] << " ";
+        }
+
+        cout << endl;
+    }
+}
+
+void Graph::bfs(int start) const
+{
+    vector<bool> discoveredSet(adjacencyList.size(), false);
+    queue<int> frontierQueue;
+
+    frontierQueue.push(start);
+    discoveredSet[start] = true;
+
+    while (!frontierQueue.empty())
+    {
+        int currentV = frontierQueue.front();
+        frontierQueue.pop();
+
+        cout << currentV << " ";
+
+        for (int i = 0; i < adjacencyList[currentV].size(); i++)
+        {
+            int adjV = adjacencyList[currentV][i];
+
+            if (!discoveredSet[adjV])
+            {
+                frontierQueue.push(adjV);
+                discoveredSet[adjV] = true;
+            }
+        }
+    }
+
+    cout << endl;
+}
+
+void Graph::dfs(int start) const
+{
+    vector<bool> visitedSet(adjacencyList.size(), false);
+    stack<int> vertexStack;
+
+    vertexStack.push(start);
+
+    while (!vertexStack.empty())
+    {
+        int currentV = vertexStack.top();
+        vertexStack.pop();
+
+        if (!visitedSet[currentV])
+        {
+            cout << currentV << " ";
+            visitedSet[currentV] = true;
+
+            for (int i = 0; i < adjacencyList[currentV].size(); i++)
+            {
+                int adjV = adjacencyList[currentV][i];
+                vertexStack.push(adjV);
+            }
+        }
+    }
+
+    cout << endl;
+}
+
+int main()
+{
+    Graph graph(6);
+
+    graph.addEdge(0, 1);
+    graph.addEdge(0, 3);
+    graph.addEdge(1, 2);
+    graph.addEdge(1, 4);
+    graph.addEdge(2, 5);
+    graph.addEdge(3, 4);
+    graph.addEdge(4, 5);
+
+    cout << "Adjacency List:" << endl;
+    graph.display();
+
+    cout << endl;
+
+    cout << "BFS starting at vertex 0:" << endl;
+    graph.bfs(0);
+
+    cout << endl;
+
+    cout << "DFS starting at vertex 0:" << endl;
+    graph.dfs(0);
+
+    return 0;
+}
+```
+
+BFS and DFS visit the vertices in different orders because BFS uses a queue and visits vertices based on their distance from the starting vertex. DFS uses a stack and follows one path as far as possible before backtracking.
+
+## Analysis and Reflection
+
+1.) They only store the edges that actually exist, which saves space.  
+
+2.) A single position in the matrix can be checked directly in O(1) time.  
+
+3.) It processes vertices in the order they are discovered, allowing it to move outward level by level.  
+
+4.) It processes the most recently discovered vertex first, allowing it to follow one path as deeply as   possible.  
+
+5.) This prevents the same vertices from being processed repeatedly, especially when cycles exist.  
+
+6.) It visits vertices in increasing distance from the starting vertex.  
+
+7.) It considers the number of edges, not the weight of each edge.  
+
+8.) An edge from A to B does not automatically mean there is also an edge from B to A.  
+
+9.) They allow the actual shortest path to be reconstructed after the distances are calculated.  
+
+10.) A path that was already considered shortest could later become cheaper through a negative edge.  
